@@ -1,3 +1,4 @@
+import DropDown from "./dropDownBtn/dropDown";
 import Header from "./headerPage/Header";
 import Search from "./search/search";
 
@@ -6,6 +7,7 @@ function App() {
     <>
       <Header></Header>
       <Search></Search>
+      <DropDown></DropDown>
     </>
   );
 }
