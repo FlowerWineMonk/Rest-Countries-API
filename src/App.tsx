@@ -5,9 +5,13 @@ import Search from "./search/search";
 function App() {
   return (
     <>
-      <Header></Header>
-      <Search></Search>
-      <DropDown></DropDown>
+      <div className="header">
+        <Header></Header>
+      </div>
+      <div className="main">
+        <Search></Search>
+        <DropDown></DropDown>
+      </div>
     </>
   );
 }

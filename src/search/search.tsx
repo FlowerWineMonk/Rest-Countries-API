@@ -1,5 +1,6 @@
 function Search() {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const name: string = e.target.value.toLowerCase();
     if (name) {
       (async () => {

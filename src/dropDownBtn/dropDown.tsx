@@ -13,7 +13,7 @@ function DropDown() {
             throw new Error(`Failed to fetch the request! ${fetchData.status}`);
           }
 
-          const response = fetchData.json();
+          const response = await fetchData.json();
           console.log(response);
         } catch (err) {
           console.log(err);
