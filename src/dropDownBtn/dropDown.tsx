@@ -2,7 +2,7 @@ function DropDown() {
   const handleRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const region: string = e.target.value;
-    if (region) {
+    if (region !== "Filter by Region") {
       (async () => {
         try {
           const fetchData = await fetch(
@@ -26,11 +26,10 @@ function DropDown() {
     <>
       <div>
         <select name="region" onChange={handleRegion}>
-          <option value="">Region</option>
-          <option value="All">All</option>
-          <option value="Asia">Asia</option>
+          <option value="">Filter by Region</option>
           <option value="Africa">Africa</option>
           <option value="America">America</option>
+          <option value="Asia">Asia</option>
           <option value="Europe">Europe</option>
           <option value="Oceania">Oceania</option>
         </select>
