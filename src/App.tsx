@@ -1,6 +1,7 @@
 import DropDown from "./dropDownBtn/dropDown";
 import Header from "./headerPage/Header";
 import Search from "./search/search";
+import Countries from "./country/country";
 
 function App() {
   return (
@@ -11,10 +12,10 @@ function App() {
       <div className="main">
         <Search></Search>
         <DropDown></DropDown>
+        <Countries></Countries>
       </div>
     </>
   );
 }
-// https://restcountries.com/v3.1/all url
 
 export default App;
