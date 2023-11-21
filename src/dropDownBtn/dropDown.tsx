@@ -1,4 +1,7 @@
-function DropDown() {
+import { SetStateAction } from "react";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function DropDown({ setData }: { setData: React.Dispatch<SetStateAction<any>> }) {
   const handleRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const region: string = e.target.value;
@@ -14,12 +17,12 @@ function DropDown() {
           }
 
           const response = await fetchData.json();
-          console.log(response);
+          setData(response);
         } catch (err) {
           console.log(err);
         }
       })();
-    }
+    }   
   };
 
   return (

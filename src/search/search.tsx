@@ -1,4 +1,7 @@
-function Search() {
+import { SetStateAction } from "react";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Search({ setData }: { setData: React.Dispatch<SetStateAction<any>> }) {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const name: string = e.target.value.toLowerCase();
@@ -13,7 +16,7 @@ function Search() {
             throw new Error(`Failed to fetch the request! ${fetchData.status}`);
 
           const response = await fetchData.json();
-          console.log(response);
+          setData(response);
         } catch (err) {
           console.log(err);
         }
