@@ -22,6 +22,23 @@ function DropDown({ setData }: { setData: React.Dispatch<SetStateAction<any>> })
           console.log(err);
         }
       })();
+    } 
+    
+    if (region === "All") {
+      (async () => {
+        try {
+          const fetchData = await fetch(`https://restcountries.com/v3.1/all`);
+    
+          if (!fetchData.ok) {
+            throw new Error(`Failed to fetch the request! ${fetchData.status}`);
+          }
+    
+          const response = await fetchData.json();
+          setData(response);
+        } catch (err) {
+          console.log(err);
+        }
+      })();
     }   
   };
 
@@ -30,6 +47,7 @@ function DropDown({ setData }: { setData: React.Dispatch<SetStateAction<any>> })
       <div>
         <select name="region" onChange={handleRegion}>
           <option value="">Filter by Region</option>
+          <option value="All">All</option>
           <option value="Africa">Africa</option>
           <option value="America">America</option>
           <option value="Asia">Asia</option>

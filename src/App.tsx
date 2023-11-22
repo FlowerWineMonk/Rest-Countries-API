@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DropDown from "./dropDownBtn/dropDown";
 import Header from "./headerPage/Header";
 import Search from "./search/search";
@@ -14,6 +15,18 @@ export interface Country {
   capital: string;
 }
 
+export const CountryInfo: React.FC<Country> = (country) => {
+  return (
+    <div className="country-info">
+      <img src={country.flag} />
+      <h2>{country.name.common}</h2>
+      <p>Region: {country.region}</p>
+      <p>Capital: {country.capital}</p>
+      <p>Population: {country.population.toLocaleString()}</p>
+    </div>
+  );
+};
+
 function App() {
   const [data, setData] = useState<Country[]>([]);
 
@@ -26,7 +39,7 @@ function App() {
         <Search setData={setData}></Search>
 
         <DropDown setData={setData}></DropDown>
-
+        
         <Countries data={data} setData={setData}></Countries>
       </div>
     </>
