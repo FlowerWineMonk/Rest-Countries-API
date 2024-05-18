@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SetStateAction } from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function DropDown({ setData }: { setData: React.Dispatch<SetStateAction<any>> }) {
+function DropDown({
+  setData,
+}: {
+  setData: React.Dispatch<SetStateAction<any>>;
+}) {
   const handleRegion = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const region: string = e.target.value;
@@ -22,24 +26,24 @@ function DropDown({ setData }: { setData: React.Dispatch<SetStateAction<any>> })
           console.log(err);
         }
       })();
-    } 
-    
+    }
+
     if (region === "All") {
       (async () => {
         try {
           const fetchData = await fetch(`https://restcountries.com/v3.1/all`);
-    
+
           if (!fetchData.ok) {
             throw new Error(`Failed to fetch the request! ${fetchData.status}`);
           }
-    
+
           const response = await fetchData.json();
           setData(response);
         } catch (err) {
           console.log(err);
         }
       })();
-    }   
+    }
   };
 
   return (

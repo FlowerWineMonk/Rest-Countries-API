@@ -1,7 +1,35 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SetStateAction, useEffect } from "react";
-import { Country } from "../App";
-import { CountryInfo } from "../App";
+
+export interface Country {
+  name: {
+    common: string;
+  };
+  flags: any;
+  region: string;
+  population: number;
+  capital: string;
+  subregion: string;
+  currencies: [];
+  languages: [];
+  borders: [];
+}
+
+export const CountryInfo: React.FC<Country> = (country) => {
+  return (
+    <div className="country-info">
+      <img src={country.flags.png} />
+      <h2>{country.name.common}</h2>
+      <p>Region: {country.region}</p>
+      <p>Capital: {country.capital}</p>
+      <p>Population: {country.population.toLocaleString()}</p>
+      <p>Sub Region: {country.subregion}</p>
+      <p>Currencies: </p>
+    </div>
+  );
+};
 
 const Countries = ({
   data,
@@ -21,12 +49,13 @@ const Countries = ({
 
         const response = await fetchData.json();
         setData(response);
+        console.log(setData);
       } catch (err) {
         console.log(err);
       }
     })();
   }, [setData]);
-  
+
   return (
     <>
       <div>
