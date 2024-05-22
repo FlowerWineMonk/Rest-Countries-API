@@ -16,9 +16,10 @@ export interface Country {
   subregion: string;
   currencies: { [key: string]: { name: string } };
   languages: { [key: string]: string };
-  borders: string[];
+  borders: string[] | null;
 }
 
+// if border exists. sometimes it does not exist
 export const CountryInfo: React.FC<Country & { onClick: () => void }> = ({
   name,
   flags,
@@ -38,19 +39,18 @@ export const CountryInfo: React.FC<Country & { onClick: () => void }> = ({
   );
 };
 
-const DetailedCountryInfo: React.FC<Country> = (country) => {
-  const {
-    name,
-    flags,
-    region,
-    population,
-    capital,
-    subregion,
-    currencies,
-    languages,
-    borders,
-  } = country;
-
+const DetailedCountryInfo: React.FC<Country & { onBack: () => void }> = ({
+  name,
+  flags,
+  region,
+  population,
+  capital,
+  subregion,
+  currencies,
+  languages,
+  borders,
+  onBack,
+}) => {
   const currencyNames = Object.values(currencies)
     .map((currency) => currency.name)
     .join(", ");
@@ -58,6 +58,7 @@ const DetailedCountryInfo: React.FC<Country> = (country) => {
 
   return (
     <div className="detailed-country-info">
+      <button onClick={onBack}>Back</button>
       <img src={flags.png} alt={`Flag of ${name.common}`} />
       <h2>{name.common}</h2>
       <p>Region: {region}</p>
@@ -66,10 +67,11 @@ const DetailedCountryInfo: React.FC<Country> = (country) => {
       <p>Sub Region: {subregion}</p>
       <p>Currencies: {currencyNames}</p>
       <p>Languages: {languageNames}</p>
-      <p>Borders: {borders.join(", ")}</p>
+      <p>Borders: {borders ? borders.join(", ") : "None"}</p>
     </div>
   );
 };
+
 const Countries = ({
   data,
   setData,
@@ -78,6 +80,7 @@ const Countries = ({
   setData: React.Dispatch<SetStateAction<any>>;
 }) => {
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+
   useEffect(() => {
     (async () => {
       try {
@@ -89,7 +92,6 @@ const Countries = ({
 
         const response = await fetchData.json();
         setData(response);
-        console.log(setData);
       } catch (err) {
         console.log(err);
       }
@@ -100,10 +102,14 @@ const Countries = ({
     setSelectedCountry(country);
   };
 
+  const handleBackClick = () => {
+    setSelectedCountry(null);
+  };
+
   return (
     <div>
       {selectedCountry ? (
-        <DetailedCountryInfo {...selectedCountry} />
+        <DetailedCountryInfo {...selectedCountry} onBack={handleBackClick} />
       ) : (
         <div>
           {data.map((country) => (
@@ -118,4 +124,5 @@ const Countries = ({
     </div>
   );
 };
+
 export default Countries;
